@@ -1,0 +1,45 @@
+<form #modifica = "ngForm" style = "width: 100%; max-width: fit-content; position:relative; top: 75px; left: 40px;" (ngSubmit)="modificaElemento(modifica)">
+  <div style = "display: flex; flex-direction: column;">
+
+  <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+    <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+        <mat-label>title</mat-label>
+        <input matInput type = "text" name="titolo" ngModel required [ngModel]="this.u.datiUtente.expenses[id].title">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+      <mat-label>date</mat-label>
+      <input matInput type = "text" [title]="dateInfo" name="data" ngModel required [ngModel]="this.u.datiUtente.expenses[id].date" pattern="\d{4}[\s]*-[\s]*[0]*([1-9]|1[0-2])[\s]*-[\s]*[0]*([1-9]|[12][0-9]|3[01])">
+      <mat-hint>yyyy - mm - dd</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+      <mat-label>beneficiary</mat-label>
+      <input matInput type = "text" name="beneficiario" ngModel required [ngModel]="this.u.datiUtente.expenses[id].beneficiary">
+    </mat-form-field>
+  </div>
+  
+  <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+    <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+      <mat-label>paid amount</mat-label>
+      <input matInput type = "number" name="importoPagato" ngModel required [ngModel]="this.u.datiUtente.expenses[id].paid_amount_num">
+    </mat-form-field>
+
+      <mat-form-field style = "margin-right: 30px;">
+        <mat-label>currency</mat-label>
+        <mat-select  required ngModel name = "valuta" [ngModel]="this.u.datiUtente.expenses[id].currency">
+          @for(v of valute;track $index){
+            <mat-option value = "{{v.code}}">{{v.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+    <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+      <mat-label>description</mat-label>
+      <input matInput type = "text" name="descrizione" ngModel required [ngModel]="this.u.datiUtente.expenses[id].description">
+    </mat-form-field>
+  </div>
+
+  </div>
+    <button mat-raised-button type="submit" style = "background-color: rgb(0, 0, 0); color:white;" [disabled]="!modifica.valid"><mat-icon style = "margin-left:9px; font-size: 1.3em !important;">assignment</mat-icon></button>
+</form>

@@ -1,0 +1,11 @@
+mat-form-field, [type = "submit"]{
+    width: 300px;
+}
+
+[disabled = "true"]{
+    background-color: rgb(199, 199, 199);
+ }
+
+[disabled = "false"]{
+    background-color: rgb(48, 48, 48);
+}

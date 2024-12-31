@@ -1,0 +1,58 @@
+<div style="margin-left:70px;margin-top: 70px;">
+    <h3>{{profilo.name}} {{profilo.surname}}</h3>
+    <p title="yyyy - mm - dd"><strong>BIRTH DATE: </strong> {{profilo.birth_date}}</p>
+    <p><strong>BIRTH STATE: </strong> {{profilo.birth_state}}</p>
+    <p><strong>BIRTH CITY: </strong> {{profilo.birth_city}}</p>
+    <p><strong>IDENTITY CHART NUMBER: </strong> {{profilo.nci}}</p>
+    <p title="yyyy - mm - dd"><strong>HIRE DATE: </strong> {{profilo.hire_date}}</p>
+    <p><strong>OFFICE CODE: </strong> {{profilo.office_code}}</p>
+    <p><strong>SUBJECT/S{{' ('+profilo.subjects.length+')'}}: </strong>{{' '}}
+        @for(m of profilo.subjects;track $index){
+        @if(profilo.subjects.indexOf(m) != (profilo.subjects.length -1)){
+            {{m}},
+        }@else{
+            {{m}}
+        }
+        }
+    </p>
+    <p>
+    <strong>CLASS/ES{{profilo.classes && profilo.classes.length > 0?' ('+profilo.classes.length+')':''}}: </strong>{{' '}}
+        @if(profilo.classes){
+            @if(profilo.classes.length > 0){
+                @for(c of this.u.header.classes;track $index){
+                    @if(profilo.classes.includes(c.id)){
+                        @if(profilo.classes.indexOf(c.id) == (profilo.classes.length - 1)){
+                            <a routerLink="/classes/{{c.id}}/{{c.year}}/{{c.section}}" class = 'info'>{{c.year}}-{{c.section}}</a>    
+                        }@else{
+                            <a routerLink="/classes/{{c.id}}/{{c.year}}/{{c.section}}" class = 'info'>{{c.year}}-{{c.section}}</a>,
+                        }   
+                    }
+                }
+            }@else{
+                this professor has no assigned classes at the moment
+            }
+        }@else{
+            this professor has no assigned classes at the moment
+        }
+    </p>
+    <p>
+        <strong>CLUB/S:{{profilo.clubs && profilo.clubs > 0?' ('+profilo.clubs.length+')':''}} </strong>{{' '}}
+            @if(profilo.clubs){
+                @if(profilo.clubs.length > 0){
+                    @for(c of this.u.header.clubs;track $index){
+                        @if(profilo.clubs.includes(c.id)){
+                            @if(profilo.clubs.indexOf(c.id) == (profilo.clubs.length - 1)){
+                                <a routerLink="/clubs/{{c.id}}/{{c.name}}" class = 'info'>{{c.name}}</a>    
+                            }@else{
+                                <a routerLink="/clubs/{{c.id}}/{{c.name}}" class = 'info'>{{c.name}}</a>,
+                            }   
+                        }
+                    }
+                }@else{
+                    this professor isn't manager of a club at the moment
+                }
+            }@else{
+                this professor isn't manager of a club at the moment
+            }
+        </p>
+</div>

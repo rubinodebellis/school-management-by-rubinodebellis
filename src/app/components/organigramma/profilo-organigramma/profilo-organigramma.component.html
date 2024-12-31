@@ -1,0 +1,18 @@
+<div style="margin-left:70px;margin-top: 70px;">
+    <h3>{{profilo.name}} {{profilo.surname}}</h3>
+    <p title="yyyy - mm - dd"><strong>BIRTH DATE: </strong> {{profilo.birth_date}}</p>
+    <p><strong>BIRTH STATE: </strong> {{profilo.birth_state}}</p>
+    <p><strong>BIRTH CITY: </strong> {{profilo.birth_city}}</p>
+    <p><strong>IDENTITY CHART NUMBER: </strong> {{profilo.nci}}</p>
+    <p title="yyyy - mm - dd"><strong>HIRE DATE: </strong> {{profilo.hire_date}}</p>
+    <p><strong>OFFICE CODE: </strong> {{profilo.office_code}}</p>
+    <p><strong>ROLE/ES{{' ('+profilo.roles.length+')'}}: </strong>{{' '}}
+        @for(r of profilo.roles;track $index){
+        @if(profilo.roles.indexOf(r) != (profilo.roles.length -1)){
+            {{r}},
+        }@else{
+            {{r}}
+        }
+        }
+    </p>
+</div>

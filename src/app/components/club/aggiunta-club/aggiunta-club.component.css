@@ -1,0 +1,50 @@
+[disabled].submit{
+    background-color: rgb(61, 61, 61) !important;
+    color: rgb(172, 171, 170) !important;
+}
+.grey{
+    color: #ecebeb67;
+}
+td{
+    border: none;
+    height: 30px !important;
+}
+th{
+    border: none;
+    width: 100px;
+}
+.orari{
+    width: 80px;
+    cursor: pointer;
+}
+.close{
+    cursor: pointer;
+    color:black !important;
+    background-color: transparent !important;
+}
+.close:hover{
+    transform: scale(1.05);
+}
+.close:active{
+    transform: scale(0.95);
+}
+  .orari {
+    background-color: transparent !important;
+  }
+
+  .orari {
+    background-color: transparent !important;
+  }
+
+  .orari {
+    background-color: rgba(0, 0, 0, 0.42);
+  }
+
+  .orari {
+    background-color: #000;
+  }
+
+  .orari {
+    color: #000;
+  }
+  

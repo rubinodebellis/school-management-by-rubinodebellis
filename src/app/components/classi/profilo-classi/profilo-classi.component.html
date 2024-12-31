@@ -1,0 +1,46 @@
+<div style="margin-left:70px;margin-top: 70px;">
+    <h3>{{profilo.year}}-{{profilo.section}}</h3>
+    <p style = "font-size: larger;"><strong>PROFESSORS{{profilo.professors?' ('+profilo.professors.length+')':''}}  <mat-icon style = " font-size:1.3em;position: relative; top:5.4px;cursor:pointer" (click)="professori = !professori">@if(professori == false){keyboard_arrow_down}@else{keyboard_arrow_up}</mat-icon></strong></p>
+    @if(professori == true){
+        @if(profilo.professors){
+        @if(profilo.professors.length > 0){
+        @for(p of this.u.header.professors;track $index){
+            @if(profilo.professors.includes(p.id)){
+                <p style = "display: flex; flex-direction: row;"> 
+                    <strong style = "font-size: medium;" routerLink="/professors/{{p.id}}/{{p.name}}/{{p.surname}}" class = "info">{{p.name}} {{p.surname}}</strong>{{': '}}
+                        @for(m of p.subjects;track $index){
+                        @if(p.subjects.indexOf(m) != (p.subjects.length -1)){
+                            {{' '+m}},
+                        }@else{
+                            {{' '+m}}
+                        }
+                        }
+                </p>
+            }
+        }
+    }@else{
+        <p>this class has no assigned professors at the moment</p>
+    }
+        }@else{
+        <p>this class has no assigned professors at the moment</p>
+        }
+    }
+    <p style = "font-size: larger;"><strong>STUDENTS{{profilo.students?' ('+profilo.students.length+')':''}}<mat-icon style = "font-size:1.3em;cursor:pointer;position: relative; top:5.4px;" (click)="studenti = !studenti">@if(studenti == false){keyboard_arrow_down}@else{keyboard_arrow_up}</mat-icon></strong></p>
+    @if(studenti == true){
+        @if(profilo.students){
+            @if(profilo.students.length > 0){
+            @for(s of this.u.header.students;track $index){
+                @if(profilo.students.includes(s.id)){
+                    <p style = "display: flex; flex-direction: row;"> 
+                        <strong style = "font-size: medium;" routerLink="/students/{{s.id}}/{{s.name}}/{{s.surname}}" class = "info">{{s.name}} {{s.surname}}</strong>
+                    </p>
+                }
+            }
+        }@else{
+            <p>there are no students in this class at the moment</p>
+        }
+    }@else{
+        <p>there are no students in this class at the moment</p>
+    }
+    }
+</div>

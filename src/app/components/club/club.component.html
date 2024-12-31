@@ -1,0 +1,39 @@
+<div style="display: flex; flex-direction: row;">
+    <div>
+      <div>
+        <mat-icon class="queue"  [routerLink]="this.u.aggiuntaAttiva.clubs == true ? '/clubs':'/clubs/addition'" [class.green]="this.u.aggiuntaAttiva.clubs == true">queue</mat-icon><br>
+        <p [class.unshowed]="this.u.header['clubs'].length != 0" style="margin-left: 40px;">No club entered</p> 
+        <div style="margin-left: 20px;">
+          @for(d of this.u.header['clubs'] | paginate:{ itemsPerPage: 6, currentPage: this.u.pages.clubs}; track $index){
+              <div class = "dato">
+              <button mat-fab class = "buttons d" [routerLink]="'/clubs/'+d.id+'/'+d.name" >{{d.name}}</button>
+              <button mat-fab [routerLink]="this.u.modificaAttiva.clubs == true ? (this.u.idModifica.clubs == d.id ? '/clubs' : undefined) :'/clubs/edit/'+d.id+'/'+d.name" class = "buttons elMod">
+                <mat-icon [class.yellow]="this.u.idModifica.clubs == d.id">create</mat-icon>
+              </button>
+              <button mat-fab class = "buttons elMod" (click)="this.u.contraryDeleting('clubs',d.id)">
+                <mat-icon [class.red]="d.deleting == true">delete</mat-icon>
+              </button>
+              @if(d.deleting == true){
+                <button style = "color:rgb(145, 6, 6) !important;" mat-fab class = "buttons elMod" (click)="eliminaElemento(d.id)">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+              }
+            </div>
+          }
+        </div> 
+      </div>    
+  
+      <div class="pag" [class.unshowed]="this.u.header.clubs.length <= 6">
+        <mat-icon  [class.unshowed]="this.u.header.clubs.length <= 6" (click)="this.u.firstPage(selectPage,'clubs')" [class.grey]="this.u.pages.clubs == 1" [class.pagIconAbled]="this.u.pages.clubs != 1" title = "first page" class = "pagIcon">fast_rewind</mat-icon>
+        <mat-icon [class.unshowed]="this.u.header.clubs.length <= 6" (click)="this.u.previousPage(selectPage,'clubs')" [class.grey]="this.u.pages.clubs == 1" [class.pagIconAbled]="this.u.pages.clubs != 1" title = "previous page" class = "pagIcon">arrow_left</mat-icon>
+        <mat-select [class.unshowed]="this.u.header.clubs.length <= 6" #selectPage style="width: 35px !important; margin-top:1.5px; margin-right: 8px;" [placeholder]="this.u.pages.clubs">
+          @for(o of this.u.pagOptions(this.u.lastPage('clubs'));track $index){
+            <mat-option (click)="this.u.pages.clubs = o" value="{{o}}">{{o}}</mat-option>
+          }
+        </mat-select> <p [class.unshowed]="this.u.header.clubs.length <= 6" style="margin-top: 1.5px;">{{' of ' + this.u.lastPage('clubs')}}</p>
+        <mat-icon [class.unshowed]="this.u.header.clubs.length <= 6" (click)="this.u.nextPage(selectPage,'clubs')" [class.grey]="this.u.pages.clubs == this.u.lastPage('clubs')" [class.pagIconAbled]="this.u.pages.clubs != this.u.lastPage('clubs')" title = "next page" class = "pagIcon" style = "margin-left: 20px;">arrow_right</mat-icon> 
+        <mat-icon [class.unshowed]="this.u.header.clubs.length <= 6" (click)="this.u.lastPageS(selectPage,'clubs')" [class.grey]="this.u.pages.clubs == this.u.lastPage('clubs')" [class.pagIconAbled]="this.u.pages.clubs != this.u.lastPage('clubs')" title = "last page" disabled class = "pagIcon">fast_forward</mat-icon>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </div>

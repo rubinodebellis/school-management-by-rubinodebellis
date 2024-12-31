@@ -1,0 +1,105 @@
+<form #aggiunta = "ngForm" style = "width: 100%; max-width: fit-content; position:relative; top: 75px; left: 40px;" (ngSubmit)="aggiuntaElemento(aggiunta)">
+    <div style = "display: flex; flex-direction: column;">
+  
+    <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+      <mat-form-field appearance="fill" style = "margin-right: 30px; width: 230px;"> 
+          <mat-label>title</mat-label>
+          <input matInput type = "text" name="titolo" ngModel required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" style = "margin-right: 10px; width: 130px;"> 
+        <mat-label>start day</mat-label>
+        <input matInput type = "text" [title]="dateInfo" name="giornoInizio" ngModel required pattern="\d{4}[\s]*-[\s]*[0]*([1-9]|1[0-2])[\s]*-[\s]*[0]*([1-9]|[12][0-9]|3[01])">
+        <mat-hint>yyyy - mm - dd</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style = "margin-right: 30px; width: 90px;"> 
+        <mat-label>start time</mat-label>
+        <input matInput type = "time" name="oraInizio" ngModel required>
+        <mat-hint>hh:minmin</mat-hint>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" style = "margin-right: 10px; width: 130px;"> 
+        <mat-label>end day</mat-label>
+        <input matInput type = "text" [title]="dateInfo" name="giornoFine" ngModel required pattern="\d{4}[\s]*-[\s]*[0]*([1-9]|1[0-2])[\s]*-[\s]*[0]*([1-9]|[12][0-9]|3[01])">
+        <mat-hint>yyyy - mm - dd</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style = "margin-right: 30px; width: 90px;"> 
+        <mat-label>end time</mat-label>
+        <input matInput type = "time" name="oraFine" ngModel required>
+        <mat-hint>hh:minmin</mat-hint>
+      </mat-form-field>
+    </div>
+  
+    <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+      <mat-form-field appearance="fill" style = "margin-right: 30px;height: 80px; max-height:80px; width: 230px;"> 
+          <mat-label>accommodation place</mat-label>
+          <input matInput type = "text" name="alloggio" ngModel required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" style = "margin-right: 30px;height: 80px; max-height:80px ;width: 230px;"> 
+          <mat-label>transport company</mat-label>
+          <input matInput type = "text" name="dittaTrasporti" ngModel required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style = "margin-right: 30px;width: 230px;">
+        <mat-label>schedule</mat-label>
+        <textarea matInput type = "text" name="programma" ngModel required></textarea>
+      </mat-form-field>
+    </div>
+  
+    <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+        <mat-form-field appearance="fill" style = "margin-right: 30px;width: 230px;"> 
+            <mat-label>total cost</mat-label>
+            <input matInput type = "number" name="costoTotale" ngModel required>
+          </mat-form-field>
+    
+          <mat-form-field style = "margin-right: 30px;width: 230px;">
+            <mat-label>currency</mat-label>
+            <mat-select  required ngModel name = "valuta">
+              @for(v of valute;track $index){
+                <mat-option value = "{{v.code}}">{{v.name}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field style = "margin-right: 30px;">
+            <mat-label>responsibles</mat-label>
+            <mat-select  multiple name = "professori">
+              <mat-option>
+                <ngx-mat-select-search 
+                    placeholderLabel="search ..."
+                    noEntriesFoundLabel="no option founded"
+                    (input)="onSearchChangeProfessors($event)">
+                </ngx-mat-select-search>
+              </mat-option>
+              @for(p of this.u.header.professors;track $index){
+                @if(this.filteredOptionsProfessors.includes(p.name + ' ' + p.surname)){
+                  <mat-option [value]="p.id">{{p.name}} {{p.surname}}</mat-option>
+                }
+              }
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+      <mat-form-field style = "margin-right: 30px;">
+        <mat-label>students</mat-label>
+        <mat-select multiple ngModel name = "studenti">
+            <mat-option>
+                <ngx-mat-select-search 
+                    placeholderLabel="search ..."
+                    noEntriesFoundLabel="no option founded"
+                    (input)="onSearchChangeStudents($event)">
+                </ngx-mat-select-search>
+              </mat-option>
+              @for (s of this.u.header.students; track $index) {
+                @if(this.filteredOptionsStudents.includes(s.name + ' ' + s.surname + ', ' + (!s.classes || s.classes.length == 0?'no class':this.u.datiUtente.classes[s.classes[0]].fullDef))){
+                  <mat-option [value]="s.id">{{s.name}} {{s.surname + ', '}}{{(!s.classes || s.classes.length == 0?'no class':this.u.datiUtente.classes[s.classes[0]].fullDef)}}</mat-option>
+              }
+              }
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    </div>
+      <button mat-raised-button type="submit" style = "background-color: rgb(0, 0, 0); color:white;" [disabled]="!aggiunta.valid"><mat-icon style = "margin-left:9px; font-size: 1.3em !important;">assignment</mat-icon></button>
+  </form>

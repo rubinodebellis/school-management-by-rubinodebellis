@@ -1,0 +1,78 @@
+<mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+    <mat-label>name</mat-label>
+    <input matInput type = "text" name="nome" [(ngModel)]="nome">
+</mat-form-field>
+
+<mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+  <mat-label>surname</mat-label>
+  <input matInput type = "text" name="cognome" [(ngModel)]="cognome">
+</mat-form-field>
+
+<button mat-raised-button type="submit" (click)="addP()" style = "background-color: rgb(0, 0, 0); color:white;" >INVIO</button>
+
+<br>
+
+@for(p of persone; track $index){
+    <app-prova [id]="p.id" [nome]="p.nome" [cognome]="p.cognome"></app-prova>
+}
+
+
+
+
+
+
+
+
+
+<!-- <form #f = "ngForm" (ngSubmit)="prova(f)" style = "margin-left: 50px; margin-top: 50px;">
+
+    <h5>schedule</h5>
+            <div style ="display: flex;flex-direction: row;">
+                    <table><tbody>
+                    @for(d of days;track $index){
+                        @if($index < 4){
+                            <tr>
+                                <td><strong>{{d.n}}</strong></td>
+                                    <td>
+                                        <mat-form-field  class = 'orari mat-form-field-infix'>
+                                            <input matInput [disabled]="d.close" class = "mat-input-element"  type = "time" name="op{{d.n}}" ngModel [required]="!d.close">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class = 'orari'>
+                                            <input matInput [disabled]="d.close" type = "time" name="cl{{d.n}}" ngModel [required]="!d.close">
+                                        </mat-form-field>
+                                    </td>
+                                <td >
+                                        <mat-icon (click)="closing($index)" class="close">event_busy</mat-icon>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody></table>
+                        <table><tbody>
+                        @for(d of days;track $index){
+                            @if($index > 3){
+                                <tr>
+                                    <td><strong>{{d.n}}</strong></td>
+                                        <td>
+                                            <mat-form-field  class = 'orari mat-form-field-infix'>
+                                                <input matInput [disabled]="d.close" class = "mat-input-element"  type = "time" name="op{{d.n}}" ngModel [required]="!d.close">
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <mat-form-field class = 'orari'>
+                                                <input matInput [disabled]="d.close" type = "time" name="cl{{d.n}}" ngModel [required]="!d.close">
+                                            </mat-form-field>
+                                        </td>
+                                    <td >
+                                            <mat-icon (click)="closing($index)" class="close">event_busy</mat-icon>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody></table>
+        </div>
+         
+<button mat-fab type="submit" [disabled]="f.invalid">INVIO</button>
+</form> -->

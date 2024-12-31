@@ -1,0 +1,11 @@
+.info{
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+.info:hover{
+    text-decoration: underline;
+}
+.info:active{
+    text-decoration: none;
+}

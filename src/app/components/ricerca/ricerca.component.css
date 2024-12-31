@@ -1,0 +1,35 @@
+.progressingAbled{
+    background-color: white;
+    color: rgb(42, 64, 189);
+    margin-right: 25px;
+}
+.progressingDisabled{
+    background-color: rgb(124, 123, 123);
+    color: rgb(233, 235, 232);
+    margin-right: 25px;
+}
+#progressbar{
+    background-color: green !important;
+}
+#filter{
+    position: absolute;
+    top:75px;
+    left:20px;
+}
+@media screen and (max-width: 1317px){
+    #filter{
+        position: absolute;
+        top:125px;
+        left:20px;
+    }
+}
+@media screen and (max-width: 715px){
+    #filter{
+        position: absolute;
+        top:175px;
+        left:20px;
+    }
+}
+.unshowed{
+    display:none;
+}

@@ -1,0 +1,21 @@
+<form #signUpForm = "ngForm" (ngSubmit)="signUp(signUpForm)" style = "margin: 20px;display: flex; flex-direction: column;">
+    <mat-form-field appearance="fill"> 
+    <mat-label>EMAIL</mat-label>
+      <input matInput type = "email" name="email" ngModel required email>
+    </mat-form-field>
+    @if(signUpForm.form.controls['email'].valid == false && signUpForm.form.controls['email'].touched){
+      <span style="color: rgb(209, 86, 86);margin-left: 20px; margin-top:5px;font-size: small;margin-bottom: 5px;">Enter a valid email</span>
+    }
+    <mat-form-field appearance="fill">
+      <mat-label>PASSWORD</mat-label>
+      <input matInput type = 'password' name="password" ngModel required minlength="8" pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-+_!@#$%^&*.,?]).+$">
+    </mat-form-field>
+    @if(signUpForm.form.controls['password'].valid == false && signUpForm.form.controls['password'].touched){
+      <span style="color: rgb(209, 86, 86);margin-left: 20px; margin-top:5px;margin-bottom: 5px; width: 275px;font-size: small;">{{str}}</span>
+    }
+    <button mat-flat-button type="submit"  [disabled]="!signUpForm.valid">SIGN UP</button>
+  </form>
+  @if(signUpError != ''){
+    <p style="color: rgb(209, 86, 86);margin-left: 20px; ">{{signUpError}}</p>
+  }
+    <p style = " margin-left:20px;display: flex; flex-direction: row;">Do you already have an account? <a routerLink="/login"> Sign in</a></p>

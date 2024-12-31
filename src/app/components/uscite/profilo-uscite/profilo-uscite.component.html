@@ -1,0 +1,47 @@
+<div style="margin-left:70px;margin-top: 70px;">
+    <h3>{{profilo.title}}</h3>
+    <p title="yyyy - mm - dd hh:minmin"><strong>START DATE: </strong> {{profilo.start_date}}</p>
+    <p title="yyyy - mm - dd hh:minmin"><strong>END DATE: </strong> {{profilo.end_date}}</p>
+    <p><strong>ACCOMMODATION PLACE: </strong> {{profilo.accommodation_place}}</p>
+    <p><strong>TRANSPORT COMPANY: </strong> {{profilo.transport_company}}</p>
+    <p [title]="'entered value: '+profilo.total_cost_num"><strong>TOTAL COST: </strong> {{profilo.total_cost}}</p>
+    <p><strong>DESCRIPTION: </strong> {{profilo.description}}</p>
+    <p><strong>RESPONSIBLE/S {{profilo.professors?' ('+profilo.professors.length+')':''}}</strong> <mat-icon style = "font-size:1.3em;cursor:pointer;position: relative; top:8.5px;" (click)="responsabili = !responsabili">@if(responsabili == false){keyboard_arrow_down}@else{keyboard_arrow_up}</mat-icon></p>
+    @if(responsabili){
+        @if(profilo.professors){
+            @if(profilo.professors.length > 0){
+                @for(p of this.u.header.professors;track $index){
+                    @if(profilo.professors.includes(p.id)){
+                            <p routerLink="/professors/{{p.id}}/{{p.name}}/{{p.surname}}" class = 'info'><strong>{{p.name}} {{p.surname}}</strong></p>    
+                    }
+                }
+            }@else{
+                this outgoing has no assigned responsibles at the moment
+            }
+        }@else{
+            this outgoing has no assigned responsibles at the moment
+        }
+    }
+        <p><strong>STUDENTS{{profilo.students?' ('+profilo.students.length+')':''}}</strong> <mat-icon style = "font-size:1.3em;cursor:pointer;position: relative; top:8.5px;" (click)="studenti = !studenti">@if(studenti == false){keyboard_arrow_down}@else{keyboard_arrow_up}</mat-icon></p>
+        @if(studenti){
+            @if(profilo.students){
+                @if(profilo.students.length > 0){
+                    @for(s of this.u.header.students;track $index){
+                        @if(profilo.students.includes(s.id)){
+                            <p style = "display: flex; flex-direction: row;">
+                                <strong style = "font-size: medium;" routerLink="/students/{{s.id}}/{{s.name}}/{{s.surname}}" class = "info">{{s.name}} {{s.surname}}</strong>
+                                @if(!s.classes || s.classes.length == 0){:no class at the moment}
+                                @else if(this.u.catchKeys('classes','id').includes(s.classes[0])){
+                                    :{{' '}}<p routerLink="/classes/{{this.u.catchElems('classes','id',[s.classes[0]],true).id}}/{{this.u.catchElems('classes','id',[s.classes[0]],true).year}}/{{this.u.catchElems('classes','id',[s.classes[0]],true).section}}" class = 'info'>{{this.u.catchElems('classes','id',[s.classes[0]],true).year}}-{{this.u.catchElems('classes','id',[s.classes[0]],true).section}}</p>
+                                }
+                            </p>
+                        }
+                    }
+                }@else{
+                    this outgoing has no assigned students at the moment
+                }
+            }@else{
+                this outgoing has no assigned students at the moment
+            }
+        }
+</div>

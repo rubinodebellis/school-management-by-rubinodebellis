@@ -1,0 +1,65 @@
+<div style="position: relative; top:75px;left:40px;">
+  <form #modifica = "ngForm" style = "width: 100%; max-width: fit-content;" (ngSubmit)="modificaElemento(modifica)">
+    <div style = "display: flex; flex-direction: column;">
+  
+    <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+      <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+          <mat-label>name</mat-label>
+          <input matInput type = "text" name="nome" [ngModel]="this.u.datiUtente.flowchart[id].name" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+        <mat-label>surname</mat-label>
+        <input matInput type = "text" name="cognome" [ngModel]="this.u.datiUtente.flowchart[id].surname" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill"> 
+        <mat-label>bitrh date</mat-label>
+        <input matInput type = "text" [title]="dateInfo" name="dataNascita" [ngModel]="this.u.datiUtente.flowchart[id].birth_date" required pattern="\d{4}[\s]*-[\s]*[0]*([1-9]|1[0-2])[\s]*-[\s]*[0]*([1-9]|[12][0-9]|3[01])">
+        <mat-hint>yyyy - mm - dd</mat-hint>
+      </mat-form-field>
+    </div>
+  
+    <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+      <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+          <mat-label>birth city</mat-label>
+          <input matInput type = "text" name="cittaNascita" [ngModel]="this.u.datiUtente.flowchart[id].birth_city" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+          <mat-label>birth state</mat-label>
+          <input matInput type = "text" name="statoNascita" [ngModel]="this.u.datiUtente.flowchart[id].birth_state" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill"> 
+        <mat-label>identity chart nr</mat-label>
+        <input matInput type = "text" name="nci" [ngModel]="this.u.datiUtente.flowchart[id].nci" title = "2 figures, 5 letters, 2 figures" required pattern="[{{lettere}}][{{lettere}}][0-9][0-9][0-9][0-9][0-9][{{lettere}}][{{lettere}}]">
+      </mat-form-field>
+    </div>
+  
+    <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+      <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+        <mat-label>hire date</mat-label>
+        <input matInput type = "text" [title]="dateInfo" name="dataAssunzione" [ngModel]="this.u.datiUtente.flowchart[id].hire_date" required pattern="\d{4}[\s]*-[\s]*[0]*([1-9]|1[0-2])[\s]*-[\s]*[0]*([1-9]|[12][0-9]|3[01])">
+        <mat-hint>yyyy - mm - dd</mat-hint>
+      </mat-form-field>
+  
+      <mat-form-field style = "margin-right: 30px;">
+        <mat-label>role/es</mat-label>
+        <mat-select  multiple required [ngModel]="this.u.datiUtente.flowchart[id].roles" name = "ruolo">
+          @for(r of ruoliLista;track $index){
+            <mat-option value = "{{r}}">{{r}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill"> 
+        <mat-label>office code</mat-label>
+        <input matInput type = "text" name="nUfficio" [ngModel]="this.u.datiUtente.flowchart[id].office_code" required >
+      </mat-form-field>
+    </div>
+  
+    </div>
+    <button mat-raised-button type="submit" style = "background-color: rgb(0, 0, 0); color:white;" [disabled]="!modifica.valid || !modifica.dirty"><mat-icon style = "margin-left:9px; font-size: 1.3em !important;">assignment</mat-icon></button>
+  </form>
+</div>

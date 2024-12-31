@@ -1,0 +1,59 @@
+<div style="margin-left:70px;margin-top: 70px;">
+    <h3>{{profilo.name}} {{profilo.name.toUpperCase() == profilo.name? 'CLUB' : 'club'}}</h3>
+    <p><strong>PLACE: </strong> {{profilo.place}}</p>
+    <p style = "font-size: larger;"><strong>SCHEDULE  <mat-icon style = " font-size:1.3em;position: relative; top:5.4px;cursor:pointer" (click)="programma = !programma">@if(programma == false){keyboard_arrow_down}@else{keyboard_arrow_up}</mat-icon></strong></p>
+    @if(programma == true){
+        <table>
+            <tbody>
+                @for(d of days;track $index){
+                    <tr>
+                        <td><strong>{{d.long}}</strong></td>
+                        <td>{{profilo.schedule[d.short]}}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <p style = "font-size: larger;"><strong>MANAGER/S{{profilo.professors?' ('+profilo.professors.length+')':''}}  <mat-icon style = "font-size:1.3em;cursor:pointer;position: relative; top:5.4px;" (click)="manager = !manager">@if(manager == false){keyboard_arrow_down}@else{keyboard_arrow_up}</mat-icon></strong></p>
+    @if(manager == true){
+        @if(profilo.professors){
+            @if(profilo.professors.length > 0){
+            @for(p of this.u.header.professors;track $index){
+                @if(profilo.professors.includes(p.id)){
+                    <p style = "display: flex; flex-direction: row;"> 
+                        <strong style = "font-size: medium;" routerLink="/professors/{{p.id}}/{{p.name}}/{{p.surname}}" class = "info">{{p.name}} {{p.surname}}</strong>
+                    </p>
+                }
+            }
+        }@else{
+            <p>this club has no assigned managers at the moment</p>
+        }
+    }@else{
+        <p>this club has no assigned managers at the moment</p>
+    }
+    }
+
+    <p style = "font-size: larger;"><strong>STUDENTS{{profilo.students?' ('+profilo.students.length+')':''}}<mat-icon style = "font-size:1.3em;cursor:pointer;position: relative; top:5.4px;" (click)="studenti = !studenti">@if(studenti == false){keyboard_arrow_down}@else{keyboard_arrow_up}</mat-icon></strong></p>
+    @if(studenti == true){
+    @if(profilo.students){
+        @if(profilo.students.length > 0){
+        @for(s of this.u.header.students;track $index){
+            @if(profilo.students.includes(s.id)){
+                <p style = "display: flex; flex-direction: row;">
+                    <strong style = "font-size: medium;" routerLink="/students/{{s.id}}/{{s.name}}/{{s.surname}}" class = "info">{{s.name}} {{s.surname}}</strong>
+                    @if(!s.classes || s.classes.length == 0){:no class at the moment}
+                    @else if(this.u.catchKeys('classes','id').includes(s.classes[0])){
+                        :{{' '}}<p routerLink="/classes/{{this.u.catchElems('classes','id',[s.classes[0]],true).id}}/{{this.u.catchElems('classes','id',[s.classes[0]],true).year}}/{{this.u.catchElems('classes','id',[s.classes[0]],true).section}}" class = 'info'>{{this.u.catchElems('classes','id',[s.classes[0]],true).year}}-{{this.u.catchElems('classes','id',[s.classes[0]],true).section}}</p>
+                    }
+                </p>
+            }
+        }
+    }@else{
+        <p>there are no students in this club at the moment</p>
+    }
+    }@else{
+        <p>there are no students in this club at the moment</p>
+    }
+    }
+</div>

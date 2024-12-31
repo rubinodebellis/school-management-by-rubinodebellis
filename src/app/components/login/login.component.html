@@ -1,0 +1,22 @@
+<form #loginForm = "ngForm" (ngSubmit)="signIn(loginForm)" style = "margin: 20px;display: flex; flex-direction: column;">
+    <mat-form-field appearance="fill"> 
+        <mat-label>EMAIL</mat-label>
+          <input matInput type = "email" name="email" ngModel required email>
+        </mat-form-field>
+        @if(loginForm.form.controls['email'].valid == false && loginForm.form.controls['email'].touched){
+          <span style="color: rgb(209, 86, 86);margin-left: 20px; margin-top:5px;font-size: small;margin-bottom: 5px;">Enter a valid email</span>
+        }
+        
+        <mat-form-field appearance="fill">
+          <mat-label>PASSWORD</mat-label>
+          <input matInput type = 'password' name="password" ngModel required >
+        </mat-form-field>
+        
+
+        <button mat-flat-button type="submit"  [disabled]="!loginForm.valid">SIGN IN</button>
+</form>
+
+@if(loginError != ''){
+  <p style="color: rgb(209, 86, 86);margin-left: 20px; width: 300px;">{{loginError}}</p>
+}
+<p style = " margin-left:20px;display: flex; flex-direction: row;">Don't you have an account? <a routerLink="/signUp">Sign up</a></p>

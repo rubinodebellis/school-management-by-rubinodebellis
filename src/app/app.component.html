@@ -1,0 +1,27 @@
+@if(this.log.utenteAttivo == true){
+    <div style = "display: flex; flex-direction: row;">
+        <div style = "margin-top: 5px;">
+            @for(c of componenti; track $index){
+              @if(c == 'filter'){
+                <a routerLink="/filter"> <button class = "navbar" mat-raised-button><mat-icon style = "position: relative; left:8px;">filter_list</mat-icon></button></a>
+              }@else{
+                <a routerLink="/{{c}}"> <button class = "navbar" mat-raised-button>{{c.toUpperCase()}}</button></a>
+              }
+            }
+        </div>
+        <div style = "margin-left: 25px !important; display: flex;flex-direction: row;" id = "outButton">
+          <a routerLink="/info"><mat-icon class = "infoIcon2">info</mat-icon></a>
+        </div>
+        <div id = "outButton" >
+          <mat-icon class = "abc" (click)="logout()">exit_to_app</mat-icon> 
+        </div>
+    </div>
+  }
+  @if(this.log.utenteAttivo == false){
+    <div style = "display: flex; flex-direction: row;">
+    <a routerLink="/login" ><button mat-raised-button class = 'navbar'>LOGIN</button></a>
+    <a routerLink="/signUp" ><button mat-raised-button class = 'navbar'>SIGN UP</button></a>
+    <a routerLink="/info"><mat-icon class = "infoIcon1">info</mat-icon></a>
+  </div>
+  }
+<router-outlet></router-outlet>

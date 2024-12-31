@@ -1,0 +1,112 @@
+.unshowed{
+    display: none;
+}
+
+.buttons{
+    position: relative;
+    left:10px;
+    top:10px;
+    height: 40px;
+    background-color: transparent;
+    box-shadow: none;
+    color: black;
+    margin-right: 10px;
+}
+.buttons:hover{
+    box-shadow: none;
+}
+.buttons:active{
+    box-shadow: none !important;
+}
+.buttons:focus{
+    box-shadow: none !important;
+}
+
+.d{
+    transform: translateY(-5px);
+    width:275px;
+    font-size: larger;
+    margin-bottom: 10px;
+}
+
+.dato{
+    border-radius:20px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+    width: 500px;
+    box-shadow: 2px 2px 1px grey;
+    height: 60px;
+}
+.dato:hover{
+    transform: scale(1.03);
+    box-shadow: 3px 3px 1.5px grey;
+}
+
+.queue{
+    height: 40px;
+    width: 40px;
+    font-size: 1.7em;
+    margin-left: 40px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.queue:hover{
+    transform: scale(1.05);
+}
+.queue:active{
+    transform: scale(0.95);
+}
+
+.yellow{
+    color: rgb(228, 107, 37);
+}
+.green{
+    color: rgb(35, 119, 23);
+}
+.red{
+    color: rgb(185, 29, 29);
+}
+.grey{
+    color: rgb(66, 66, 66) !important;
+}
+
+a{
+    color:black;
+}
+a:active{
+    transform: none;
+    color: black;
+}
+
+.pag{
+    vertical-align: middle;
+    margin-left: 110px;
+    position: absolute;
+    top:550px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+}
+@media screen and (max-width: 1317px){
+    .pag{
+        vertical-align: middle;
+        margin-left: 110px;
+        position: absolute;
+        top:580px;
+        display: flex;
+        flex-direction: row;
+        margin-top: 25px;
+    }
+}
+.pagIcon{
+    cursor:pointer;
+    width: 40px;
+    font-size: 1.7em;
+    margin-right: 20px;
+}
+.pagIconAbled:hover{
+    transform: scale(1.3);
+}
+.pagIconAbled:active{
+    transform: scale(0.97);
+}

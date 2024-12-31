@@ -1,0 +1,101 @@
+<div style="position: relative; top:75px;left:40px;">
+    <form #modifica = "ngForm" style = "width: 100%; max-width: fit-content;" (ngSubmit)="modificaElemento(modifica)">
+      <div style = "display: flex; flex-direction: column;">
+    
+      <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+        <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+            <mat-label>name</mat-label>
+            <input matInput type = "text" name="nome" [ngModel]="this.u.datiUtente.professors[id].name" required>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+          <mat-label>surname</mat-label>
+          <input matInput type = "text" name="cognome" [ngModel]="this.u.datiUtente.professors[id].surname" required>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill"> 
+          <mat-label>bitrh date</mat-label>
+          <input matInput type = "text" [title]="dateInfo" name="dataNascita" [ngModel]="this.u.datiUtente.professors[id].birth_date" required pattern="\d{4}[\s]*-[\s]*[0]*([1-9]|1[0-2])[\s]*-[\s]*[0]*([1-9]|[12][0-9]|3[01])">
+          <mat-hint>yyyy - mm - dd</mat-hint>
+        </mat-form-field>
+      </div>
+    
+      <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+        <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+            <mat-label>birth city</mat-label>
+            <input matInput type = "text" name="cittaNascita" [ngModel]="this.u.datiUtente.professors[id].birth_city" required>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+            <mat-label>birth state</mat-label>
+            <input matInput type = "text" name="statoNascita" [ngModel]="this.u.datiUtente.professors[id].birth_state" required>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill"> 
+          <mat-label>identity chart nr</mat-label>
+          <input matInput type = "text" name="nci" [ngModel]="this.u.datiUtente.professors[id].nci" title = "2 figures, 5 letters, 2 figures" required pattern="[{{lettere}}][{{lettere}}][0-9][0-9][0-9][0-9][0-9][{{lettere}}][{{lettere}}]">
+        </mat-form-field>
+      </div>
+    
+      <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+        <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+          <mat-label>hire date</mat-label>
+          <input matInput type = "text" [title]="dateInfo" name="dataAssunzione" [ngModel]="this.u.datiUtente.professors[id].hire_date" required pattern="\d{4}[\s]*-[\s]*[0]*([1-9]|1[0-2])[\s]*-[\s]*[0]*([1-9]|[12][0-9]|3[01])">
+          <mat-hint>yyyy - mm - dd</mat-hint>
+        </mat-form-field>
+    
+        <mat-form-field style = "margin-right: 30px;">
+          <mat-label>subject/s</mat-label>
+          <mat-select  multiple required ngModel name = "materie" [ngModel]="this.u.datiUtente.professors[id].subjects">
+            @for(m of materieLista;track $index){
+              <mat-option value = "{{m}}">{{m}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field style = "margin-right: 30px;">
+          <mat-label>class/es</mat-label>
+          <mat-select  multiple ngModel name = "classi" [ngModel]="this.u.datiUtente.professors[id].classes">
+            <mat-option>
+              <ngx-mat-select-search 
+                  placeholderLabel="search ..."
+                  noEntriesFoundLabel="no option founded"
+                  (input)="onSearchChangeClasses($event)">
+              </ngx-mat-select-search>
+            </mat-option>
+            @for(c of this.u.header.classes;track $index){
+              @if(this.filteredOptionsClasses.includes(c.year + '-' + c.section)){
+              <mat-option [value]="c.id">{{c.year}}-{{c.section}}</mat-option>
+            }
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+        <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+          <mat-label>office code</mat-label>
+          <input matInput type = "text" name="nUfficio" [ngModel]="this.u.datiUtente.professors[id].office_code" required >
+        </mat-form-field>
+
+        <mat-form-field class = 'non' style = "margin-right: 30px;">
+          <mat-label>club/s</mat-label>
+          <mat-select ngModel multiple name = "club" [ngModel]="this.u.datiUtente.professors[id].clubs">
+            <mat-option>
+              <ngx-mat-select-search 
+                  placeholderLabel="search ..."
+                  noEntriesFoundLabel="no option founded"
+                  (input)="onSearchChangeClubs($event)">
+              </ngx-mat-select-search>
+            </mat-option>
+              @for(c of this.u.header.clubs;track $index){
+                @if(this.filteredOptionsClubs.includes(c.name)){
+                  <mat-option [value]="c.id">{{c.name}}</mat-option>
+                }
+              }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      </div>
+      <button mat-raised-button type="submit" style = "background-color: rgb(0, 0, 0); color:white;" [disabled]="!modifica.valid || !modifica.dirty"><mat-icon style = "margin-left:9px; font-size: 1.3em !important;">assignment</mat-icon></button>
+    </form>
+  </div>

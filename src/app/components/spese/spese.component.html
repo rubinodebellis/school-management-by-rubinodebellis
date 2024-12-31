@@ -1,0 +1,39 @@
+<div style="display: flex; flex-direction: row;">
+    <div>
+      <div>
+        <mat-icon class="queue"  [routerLink]="this.u.aggiuntaAttiva.expenses == true ? '/expenses':'/expenses/addition'" [class.green]="this.u.aggiuntaAttiva.expenses == true">queue</mat-icon><br>
+        <p [class.unshowed]="this.u.header['expenses'].length != 0" style="margin-left: 40px;">No expense entered</p> 
+        <div style="margin-left: 20px;">
+          @for(d of this.u.header['expenses'] | paginate:{ itemsPerPage: 6, currentPage: this.u.pages.expenses}; track $index){
+              <div class = "dato">
+              <button mat-fab class = "buttons d" [routerLink]="'/expenses/'+d.id+'/'+d.title" >{{d.title}}</button>
+              <button mat-fab [routerLink]="this.u.modificaAttiva.expenses == true ? (this.u.idModifica.expenses == d.id ? '/expenses' : undefined) :'/expenses/edit/'+d.id+'/'+d.title" class = "buttons elMod">
+                <mat-icon [class.yellow]="this.u.idModifica.expenses == d.id">create</mat-icon>
+              </button>
+              <button mat-fab class = "buttons elMod" (click)="this.u.contraryDeleting('expenses',d.id)">
+                <mat-icon [class.red]="d.deleting == true">delete</mat-icon>
+              </button>
+              @if(d.deleting == true){
+                <button style = "color:rgb(145, 6, 6) !important;" mat-fab class = "buttons elMod" (click)="this.u.delete('expenses',d.id)">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+              }
+            </div>
+          }
+        </div> 
+      </div>    
+  
+      <div class="pag" [class.unshowed]="this.u.header.expenses.length <= 6">
+        <mat-icon  [class.unshowed]="this.u.header.expenses.length <= 6" (click)="this.u.firstPage(selectPage,'expenses')" [class.grey]="this.u.pages.expenses == 1" [class.pagIconAbled]="this.u.pages.expenses != 1" title = "first page" class = "pagIcon">fast_rewind</mat-icon>
+        <mat-icon [class.unshowed]="this.u.header.expenses.length <= 6" (click)="this.u.previousPage(selectPage,'expenses')" [class.grey]="this.u.pages.expenses == 1" [class.pagIconAbled]="this.u.pages.expenses != 1" title = "previous page" class = "pagIcon">arrow_left</mat-icon>
+        <mat-select [class.unshowed]="this.u.header.expenses.length <= 6" #selectPage style="width: 35px !important; margin-top:1.5px; margin-right: 8px;" [placeholder]="this.u.pages.expenses">
+          @for(o of this.u.pagOptions(this.u.lastPage('expenses'));track $index){
+            <mat-option (click)="this.u.pages.expenses = o" value="{{o}}">{{o}}</mat-option>
+          }
+        </mat-select> <p [class.unshowed]="this.u.header.expenses.length <= 6" style="margin-top: 1.5px;">{{' of ' + this.u.lastPage('expenses')}}</p>
+        <mat-icon [class.unshowed]="this.u.header.expenses.length <= 6" (click)="this.u.nextPage(selectPage,'expenses')" [class.grey]="this.u.pages.expenses == this.u.lastPage('expenses')" [class.pagIconAbled]="this.u.pages.expenses != this.u.lastPage('expenses')" title = "next page" class = "pagIcon" style = "margin-left: 20px;">arrow_right</mat-icon> 
+        <mat-icon [class.unshowed]="this.u.header.expenses.length <= 6" (click)="this.u.lastPageS(selectPage,'expenses')" [class.grey]="this.u.pages.expenses == this.u.lastPage('expenses')" [class.pagIconAbled]="this.u.pages.expenses != this.u.lastPage('expenses')" title = "last page" disabled class = "pagIcon">fast_forward</mat-icon>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </div>

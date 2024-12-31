@@ -1,0 +1,56 @@
+<form #modifica = "ngForm" style = "width: 100%; max-width: fit-content; position:relative; top: 75px; left: 40px;" (ngSubmit)="modificaElemento(modifica)">
+  <div style = "display: flex; flex-direction: column;">
+
+  <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+    <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+        <mat-label>year</mat-label>
+        <input matInput type = "number" name="anno" ngModel required max="3" min="1" [ngModel]="this.u.datiUtente.classes[id].year">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style = "margin-right: 30px;"> 
+      <mat-label>section</mat-label>
+      <input matInput type = "text" name="sezione" ngModel required [ngModel]="this.u.datiUtente.classes[id].section">
+    </mat-form-field>
+
+    <mat-form-field style = "margin-right: 30px;">
+      <mat-label>professors</mat-label>
+      <mat-select  multiple name = "professori" [ngModel]="this.u.datiUtente.classes[id].professors">
+        <mat-option>
+          <ngx-mat-select-search 
+              placeholderLabel="search ..."
+              noEntriesFoundLabel="no option founded"
+              (input)="onSearchChangeProfessors($event)">
+          </ngx-mat-select-search>
+        </mat-option>
+        @for(p of this.u.header.professors;track $index){
+          @if(this.filteredOptionsProfessors.includes(p.name + ' ' + p.surname)){
+            <mat-option [value]="p.id">{{p.name}} {{p.surname}}</mat-option>
+          }
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+  <div style = "display: flex; flex-direction: row;margin-bottom: 20px;">
+    <mat-form-field style = "margin-right: 30px;">
+      <mat-label>students</mat-label>
+      <mat-select multiple ngModel name = "studenti" [ngModel]="this.u.datiUtente.classes[id].students">
+          <mat-option>
+              <ngx-mat-select-search 
+                  placeholderLabel="search ..."
+                  noEntriesFoundLabel="no option founded"
+                  (input)="onSearchChangeStudents($event)">
+              </ngx-mat-select-search>
+            </mat-option>
+            @for (s of this.u.header.students; track $index) {
+              @if(this.filteredOptionsStudents.includes(s.name + ' ' + s.surname + ', ' + (!s.classes || s.classes.length == 0?'no class':this.u.datiUtente.classes[s.classes[0]].fullDef))){
+                <mat-option [value]="s.id">{{s.name}} {{s.surname + ', '}}{{(!s.classes || s.classes.length == 0?'no class':this.u.datiUtente.classes[s.classes[0]].fullDef)}}</mat-option>
+            }
+            }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+  </div>
+    <button mat-raised-button type="submit" style = "background-color: rgb(0, 0, 0); color:white;" [disabled]="!modifica.valid"><mat-icon style = "margin-left:9px; font-size: 1.3em !important;">assignment</mat-icon></button>
+</form>
